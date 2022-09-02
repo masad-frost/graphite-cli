@@ -76,12 +76,13 @@ export async function getPRBody(
 }
 
 async function editPRBody(initial: string, context: TContext): Promise<string> {
-  // We give the file the name EDIT_DESCRIPTION so certain editors treat it like a commit message
-  // Because of this, we need to create a new directory for each PR body so as to avoid collision
+  // We give the file the name EDIT_DESCRIPTION.md so certain editors treat it like a commit message.
+  // Because of this, we need to create a new directory for each PR body so as to avoid collision.
+  // Having an .md extension is also useful for editors that have markdown mode.
   const dir = tmp.dirSync();
   const file = tmp.fileSync({
     dir: dir.name,
-    name: 'EDIT_DESCRIPTION',
+    name: 'EDIT_DESCRIPTION.md',
   });
   fs.writeFileSync(file.name, initial);
 
